@@ -38,8 +38,8 @@ $(document).ready(() => {
         }
     }
 
-    chrome.storage.local.get('ExtensionOn', function (data) {
-        ExtensionOn(data.ExtensionOn);
+    chrome.storage.local.get(['ExtensionOn','Background'], function (data) {
+        if(data.ExtensionOn) ExtensionOn(data.Background);
     });
     chrome.runtime.onMessage.addListener((msg, _1, _2) => {
         if (msg == 'ExtensionOn' || msg == 'ImgSrc') {

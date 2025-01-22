@@ -4,14 +4,16 @@ const translations = {
         pic: "image",
         ap: "API",
         opa: "Opacity",
-        picapi: "image api"
+        picapi: "image api",
+        bkg: "background"
     },
 
     zh: {
         pic: "图像",
         ap: "API",
         opa: "网页不透明度",
-        picapi: "自定义图片api"
+        picapi: "自定义图片api",
+        bkg: "启用背景"
     }
 };
 function setLanguage(language) {
@@ -19,12 +21,14 @@ function setLanguage(language) {
     document.getElementById('ap').innerText = translations[language].ap;
     document.getElementById('opa').innerText = translations[language].opa;
     document.getElementById('picapi').innerText = translations[language].picapi;
+    document.getElementById('bkg').innerText = translations[language].bkg;
 }
 $(document).ready(() => {
-    chrome.storage.local.get(['ExtensionOn', 'Opacity','APIinput'], function(data) {
+    chrome.storage.local.get(['ExtensionOn', 'Opacity','APIinput','Background'], function(data) {
         $("input[name='image']").value = data.ExtensionOn;
-        if (data.ExtensionOn == true) $('#img').eq(0).prop('checked', true);
+        if (data.Background == true) $('#img').eq(0).prop('checked', true);
         else $('#api').eq(0).prop('checked', true);
+        $("#CheckboxExt")[0].checked = data.ExtensionOn;
         $("#userapi").val(data.APIinput);
         $('#ValuebarExt')[0].value = data.Opacity;
     });
@@ -34,7 +38,17 @@ $(document).ready(() => {
         var flag;
         if (this.value == 1) flag = true;
         else flag = false;
-        chrome.storage.local.set({ ExtensionOn: flag }, () =>
+        chrome.storage.local.set({ Background: flag }, () =>
+            chrome.tabs.query({}, (tabs) =>
+                tabs.forEach((tab) =>
+                    chrome.tabs.sendMessage(tab.id, "Background")
+                )
+            )
+        );
+    });
+    $('#CheckboxExt').click(function () {
+        chrome.tabs.reload();
+        chrome.storage.local.set({ ExtensionOn: $(this)[0].checked }, () =>
             chrome.tabs.query({}, (tabs) =>
                 tabs.forEach((tab) =>
                     chrome.tabs.sendMessage(tab.id, "ExtensionOn")
