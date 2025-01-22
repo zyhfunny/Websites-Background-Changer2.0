@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        div {
+            text-align: center;
+            font-size: 16px;
+            padding: 1px 3px;
+            width: 260px;
+            margin-top: 1px;
+        }
+        #ValuebarExt {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 90%;
+            height: 100%;
+            background-color: #0000;
+        }
+
+            #ValuebarExt::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 14px;
+                height: 14px;
+                transform: translateY(-4px);
+                border-radius: 10px;
+                background-color: #7BC8D9;
+            }
+
+            #ValuebarExt::-webkit-slider-runnable-track {
+                -webkit-appearance: none;
+                height: 6px;
+                border-radius: 2px;
+                background-color: #7BC8D9;
+            }
+
+            #ValuebarExt::-moz-range-thumb {
+                -moz-appearance: none;
+                width: 14px;
+                height: 12px;
+                border-radius: 7px;
+                background-color: #7BC8D9;
+            }
+
+            #ValuebarExt::-moz-range-track {
+                -moz-appearance: none;
+                height: 4px;
+                border-radius: 2px;
+                background-color: #7BC8D9;
+            }
+            input {
+                border: 0;
+                outline: 0;
+                border-radius: 7px;
+                background-color: #7BC8D9;
+            }
+            button {
+                border: 0;
+                outline: 0;
+                border-radius: 7px;
+                background-color: #7BC8D9;
+                col
+            }
+    </style>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="popup.js"></script>
+</head>
+    <body background = "background.jpg">
+        <div>
+            <button id="enBtn">English</button>
+            <button id="zhBtn">中文</button>
+            <input type="radio" name="image" value="1" id="img"> <a id="pic">图像</a> <input type="radio" name="image" value="2" id="api"> <a id="ap">API</a><br>
+            <a id="opa">网页不透明度</a>
+            <input type="range" id="ValuebarExt" min="0.0" max="1.0" step="0.03" value="0.8"></input><br>
+            <a id="picapi">自定义图片api</a>
+            <input type="url" id="userapi" placeholder="请输入您的图片api">
+        </div>
+    </body>
+</html>
